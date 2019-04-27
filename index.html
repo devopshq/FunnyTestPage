@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Войти &middot; Funny test site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Funny test page">
+    <meta name="author" content="Vladimir Sofin, QA">
+    <!-- Admin: admin@ptsecurity.ru password:P@ssw0rd -->
+    <!-- Admin: admin@ptsecurity.ru password:P@ssw0rd -->
+    <!-- Admin: admin@ptsecurity.ru password:P@ssw0rd -->
+    <!-- Admin: admin@ptsecurity.ru password:P@ssw0rd -->
+    <!-- Admin: admin@ptsecurity.ru password:P@ssw0rd -->
+    <!-- Le styles -->
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 10px auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+
+      #forgottenButton {
+        margin-top: 2000px;
+      }
+
+      #grammaticerror {
+        color: #333;
+      }
+
+      .span3 {
+        margin: 10px auto 20px;
+      }
+      
+      #bugcount li {
+        margin: 5px 10px;
+      }
+    </style>
+
+    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="./ico/favicon.ico">
+
+    <script>
+      function prepare()
+      {
+        $("#howManyBugs").html("0 из " + MAX_COUNT);
+        var count = $.cookie('count');
+        if (count != null & count != "")
+        {
+          $.cookie('count', 0);
+          $.removeCookie(LOGIN_INFO);
+          $.removeCookie(FORGOTTEN_BUTTON);
+          $.removeCookie(INVALID_EMAIL);
+          $.removeCookie(NULL_EMAILFIELD);
+          $.removeCookie(NULL_PASSFIELD);
+          $.removeCookie(FORGOTTEN_LINK);
+          $.removeCookie(FORGOTTEN_SYMB);
+          $.removeCookie(BROCKEN_CHECKBOX);
+          $.removeCookie(GRAMMATIC_ERROR);
+          $.removeCookie(REG_BTN_ANY_CLICKS);
+          $.removeCookie(DELETE_EMAIL);
+          $.removeCookie(SECOND_BUTTON);
+        }
+        $(".alert").alert('close');
+        $("#secondbutton").hide();
+      }
+    </script>
+
+  </head>
+
+  <body onload="prepare()">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="btn-group">
+              <button class="btn btn-inverse">Найдено дефектов <span id="howManyBugs"></span></button>
+              <button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+              </button>
+              <ul id="bugcount" class="dropdown-menu">
+              </ul>
+          </div>
+        </div>
+      </div>
+      <div id="alert-area"></div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+          <div class="span7">
+            <h3>Аккаунты</h3>
+            <div id="text">
+              <p  id="text1" class="lead">Все возможности в одном аккаунте.</p>
+              <p  id="text2">Если у вас еще нет аккаунта, вы можете создать его прямо сейчас – это займет всего несколько минут.</p>
+            </div>
+            <a id="registrationbtn" class="btn btn-large btn-success" href="#">Зарегистрироваться</a>
+          </div>
+          <div class="span5">
+            <form class="form-signin">
+              <h2 class="form-signin-heading">В<a id="grammaticerror" href="#">a</a>йти в систему</h2>
+              <input id="email" type="text" class="input-block-level" placeholder="Email адрес">
+              <input id="passw" type="password" class="input-block-level" placeholder="Пароль">
+              <label class="checkbox">
+                <input id="brokencheckbox" type="checkbox" value="remember-me"> Запомнить меня
+              </label>
+              <button class="btn btn-large btn-primary" type="submit">Войти</button>
+              <a id="forgottentSymb" href="#">$</a>
+              <a id="forgotPass" href="#">Забыли пароль?</a>
+            </form>
+            <button id='secondbutton' class='btn btn-large btn-primary' type='submit'>Войти</button>
+          </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p><a id="forgottenLink" href="#" style="color:#F5F5F5">Admin: admin@ptsecurity.ru password:P@ssw0rd</a></p>
+    </div> <!-- /container -->
+
+    <div class="container">
+      <button id="forgottenButton" type="button" class="btn btn-primary" data-loading-text="Выполняется вход...">Войти без регистрации</button>
+    </div> <!-- /container -->
+	
+	<div id="warningmodal" class="modal hide fade">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<h3>Вы уверены?</h3>
+		</div>
+		<div class="modal-body">
+			<p>Если хотите завершить поиск дефектов и распечатать сертификат, то вы на верном пути.</p>
+		</div>
+		<div class="modal-footer">
+			<a id="printresult" href="./print.html" class="btn btn-primary" target='_blank'>На страницу печати</a>
+		</div>
+	</div>
+
+    <!-- Le javascript
+    ================================================== -->
+    <script src="./js/jquery-1.8.2.min.js"></script>
+    <script src="./js/jquery.cookie.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/doTimeout.js"></script>
+    <script src="./js/animation.easing.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("#howManyBugs").html("0 из " + MAX_COUNT);
+		$.removeCookie(LOGIN_INFO);
+		$.removeCookie(FORGOTTEN_BUTTON);
+		$.removeCookie(INVALID_EMAIL);
+		$.removeCookie(NULL_EMAILFIELD);
+		$.removeCookie(NULL_PASSFIELD);
+		$.removeCookie(FORGOTTEN_LINK);
+		$.removeCookie(FORGOTTEN_SYMB);
+		$.removeCookie(BROCKEN_CHECKBOX);
+		$.removeCookie(GRAMMATIC_ERROR);
+		$.removeCookie(REG_BTN_ANY_CLICKS);
+		$.removeCookie(DELETE_EMAIL);
+		$.removeCookie(SECOND_BUTTON);
+        $(".alert").alert('close');
+        $("#secondbutton").hide();
+		
+        // Считаем максимальное расстояние до "земли"
+        var offset = $('#forgottenButton')[0].offsetTop - $('#text')[0].offsetTop - 15;
+        // Подготавливаем токены
+        var re = /([а-яёa-z_()<>]+|[:,.?!\-/=])/gi;
+        var str = '<span style="position: relative">$1</span>';
+        $('#text1').html($('#text1').html().replace(re, str));
+        $('#text2').html($('#text2').html().replace(re, str));
+        // Настраиваем контэйнер с текстом
+        $('#text').css('position', 'relative');
+        $("#registrationbtn").click(
+          function() {
+            if (numberOfClick < 5) {
+              numberOfClick = numberOfClick + 1;
+            }
+            else {
+              bugHasDetected(REG_BTN_ANY_CLICKS);
+              $('#text span').each(
+                function(i) {
+                    // Получаем токен
+                    var token = $(this);
+                    // Расчитываем длительности "падения" слов
+                    var duration = Math.random() * 2000;
+                    // Устанавливаем таймаут (3 сек для знаков препинания и 0-2 сек для слов)
+                    var timeout = token.text().search(/[:,.?!\-/=]/) != -1 ? 3000 : duration;
+                    // Ожидаем таймаут
+                    token.doTimeout( timeout, function() {
+                        // Запускаем анимацию "падения" токенов
+                        this.animate( { top: offset - token[0].offsetTop + 'px' }, {
+                            queue: false,
+                            duration: Math.random() * 200 + 800,
+                            easing: 'bounceEaseOut'
+                        });
+                    });
+                }
+              )
+            }
+        });
+      });
+
+      var numberOfClick = 0;
+
+      var count             = 0;
+	  var bugCountForPrint	= 0;
+      var MAX_COUNT         = 12;
+      var increaseCount     = true;
+      var LOGIN_INFO        = "В коде по ошибке оставлен логин и пароль администратора.";
+      var FORGOTTEN_BUTTON  = "Из-за невнимательности оставлена отладочная кнопка для входа без регистрации.";
+      var INVALID_EMAIL     = "Не обрабатывается email некорректного формата";
+      var NULL_EMAILFIELD   = "Не обрабатывается пустое значение поля ввода email";
+      var NULL_PASSFIELD    = "Не обрабатывается пустое значение поля ввода пароля";
+      var FORGOTTEN_LINK    = "Из-за невнимательности не удалена ссылка";
+      var FORGOTTEN_SYMB    = "Присутствует лишний символ рядом с кнопкой [Войти]";
+      var BROCKEN_CHECKBOX  = "Чекбокс сломан";
+      var GRAMMATIC_ERROR   = "Грамматическая ошибка в слове Вайти";
+      var REG_BTN_ANY_CLICKS= "Шутка разработчиков.";
+      var DELETE_EMAIL      = "Введенное в поле значение email удаляется после клика на <Забыли пароль?>";
+      var SECOND_BUTTON     = "Лишняя кнопка [Войти]"
+
+      function isBugFound(name) {
+        var bugFound = true;
+        if($.cookie(name) == null) {
+          bugFound = false;
+        }
+        return bugFound;
+      }
+
+      function defectWasFoundAllert (message) {
+        $("#alert-area").append($("<div class='alert alert-success fade in'><button type='button' class='close' data-dismiss='alert'>×</button><p><strong>Отлично.</strong> Вы нашли дефект \"" + message + "\"</p></div>"));
+        $(".alert").delay(5000).slideUp();//.fadeOut("slow", function () { $(this).remove(); });
+      }
+      
+      function bugCountEdit(name, toIncrease) {
+          if (toIncrease) {
+            var newBugCount = count + 1;
+          }
+          else {
+           var newBugCount = count - 1;
+          }
+		  bugCountForPrint = bugCountForPrint + 1;
+          $("#bugcount").append("<li>"+ bugCountForPrint +". "+ name +"</li>");
+          $("#howManyBugs").html(newBugCount + " из " + MAX_COUNT);
+          count = newBugCount;
+          $.cookie(name, newBugCount);
+          $(".alert").alert('close');
+          defectWasFoundAllert(name);
+      }
+
+      function bugHasDetected(name) {
+        if ( !isBugFound(name) ) {
+          if (count == MAX_COUNT-2) {
+            increaseCount = false;
+          }
+          bugCountEdit(name, increaseCount);
+        }
+      }
+
+      $('.form-signin').on('submit', function(e) {
+        if ( ($("#email").val() == "admin@ptsecurity.ru") & ($("#passw").val() == "P@ssw0rd") ) {
+          //LOGIN_INFO
+          bugHasDetected(LOGIN_INFO);
+        }
+        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        var emailaddressVal = $("#email").val();
+        if ($("#email").val() == "") {
+          //NULL_EMAILFIELD
+          bugHasDetected(NULL_EMAILFIELD);
+        }
+        else if ( !emailReg.test(emailaddressVal) ) {
+          //INVALID_EMAIL
+          bugHasDetected(INVALID_EMAIL);
+        }
+        else if ($("#passw").val() == "") {
+          //NULL_PASSFIELD
+          bugHasDetected(NULL_PASSFIELD)
+        }
+
+        return false;
+      });
+
+      $("#forgottenButton").click(function() {
+        bugHasDetected(FORGOTTEN_BUTTON);
+        $("#secondbutton").show();
+      });
+
+      $("#forgottenLink").click(function() {
+        bugHasDetected(FORGOTTEN_LINK);
+      });
+
+      $("#forgottentSymb").click(function() {
+        bugHasDetected(FORGOTTEN_SYMB);
+      });
+
+      $("#brokencheckbox").click(function() {
+        alert("This function is currently undergoing scheduled maintenance. Please try back in 30 days, 23 hours, and 49 minutes (on 14.12.2012 at 14:31). Sorry for the inconvenience.");
+        bugHasDetected(BROCKEN_CHECKBOX);
+      });
+
+      $("#grammaticerror").click(function() {
+        bugHasDetected(GRAMMATIC_ERROR);
+      });
+
+      $("#forgotPass").click(function() {
+        if ($("#email").val() == "") {
+          alert("Введите, пожалуйста, email.")
+        }
+        else {
+          $(".input-block-level").val("");
+          alert("Введите, пожалуйста, email.");
+          bugHasDetected(DELETE_EMAIL);
+        }
+      });
+
+      $("#secondbutton").click(function() {
+        bugHasDetected(SECOND_BUTTON);
+      });
+
+    </script>
+
+  </body>
+</html>
